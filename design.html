@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ক্যাপশন ডিজাইন স্টুডিও — Limon Chacchu Caption Ghor</title>
+<meta name="description" content="আপনার পছন্দের ক্যাপশন দিয়ে সুন্দর পোস্টার, কোট কার্ড ও সোশ্যাল মিডিয়া পোস্ট বানান। PNG/JPG ডাউনলোড করুন, বিনামূল্যে।">
+<meta name="theme-color" content="#e11d48">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Noto+Serif+Bengali:wght@400;600;700&family=Tiro+Bangla&family=Baloo+Da+2:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;600;700&family=Atma:wght@400;600;700&family=Galada&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/studio.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="/">❤️ Limon Chacchu Caption Ghor</a>
+  <a class="ib" href="/">🏠 হোম</a>
+  <button class="ib" id="themeBtn" aria-label="থিম পরিবর্তন">🌓</button>
+</div></header>
+
+<main class="wrap studio">
+  <section class="stage" aria-label="ডিজাইন ক্যানভাস">
+    <div class="canvasbox"><canvas id="cv" width="1080" height="1080" role="img" aria-label="ডিজাইন ক্যানভাস। লেখা টেনে সরানো যায়। কীবোর্ডে তীর চিহ্ন দিয়ে সরান, Delete দিয়ে মুছুন।" tabindex="0"></canvas></div>
+    <p class="hint" id="hint">লেখায় ট্যাপ করে সিলেক্ট করুন, টেনে সরান। কোণার বৃত্ত দিয়ে বড়-ছোট ও উপরের বৃত্ত দিয়ে ঘোরান।</p>
+    <div class="qa">
+      <button class="ib" id="undo" aria-label="আনডু">↶</button>
+      <button class="ib" id="redo" aria-label="রিডু">↷</button>
+      <button class="ib" id="reset">রিসেট</button>
+      <button class="ib" id="gallery">📁 আমার ডিজাইন</button>
+      <button class="btn" id="save">💾 সেভ</button>
+      <button class="btn" id="dl">⬇ ডাউনলোড</button>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="tpl" aria-selected="true">টেমপ্লেট</button>
+      <button role="tab" data-tab="txt" aria-selected="false">লেখা</button>
+      <button role="tab" data-tab="bg" aria-selected="false">ব্যাকগ্রাউন্ড</button>
+      <button role="tab" data-tab="size" aria-selected="false">সাইজ</button>
+      <button role="tab" data-tab="out" aria-selected="false">আউটপুট</button>
+    </div>
+
+    <div id="p-tpl" class="tp"><div id="tplGrid" class="tgrid"></div></div>
+
+    <div id="p-txt" class="tp" hidden>
+      <div class="row"><button class="ib" id="addTxt">+ লেখা যোগ</button><button class="ib" id="dupTxt">⧉ কপি</button><button class="ib" id="delTxt">🗑 মুছুন</button></div>
+      <fieldset id="fsText" disabled><legend class="sr">লেখার সেটিং</legend>
+        <p class="note" id="noSel">আগে ক্যানভাসে একটি লেখা সিলেক্ট করুন।</p>
+        <label>লেখা<textarea id="tx" rows="3"></textarea></label>
+        <label>ফন্ট<select id="fnt"></select></label>
+        <label>সাইজ<input type="range" id="fs" min="12" max="300"></label>
+        <label>ওজন<select id="fw"><option value="400">সাধারণ</option><option value="600">মাঝারি</option><option value="700">বোল্ড</option></select></label>
+        <label>রং<input type="color" id="col"></label>
+        <div class="seg" role="group" aria-label="অ্যালাইনমেন্ট"><button class="ib" data-al="left">বামে</button><button class="ib" data-al="center">মাঝে</button><button class="ib" data-al="right">ডানে</button></div>
+        <label>লাইন হাইট<input type="range" id="lh" min="1" max="2.4" step="0.05"></label>
+        <label>অক্ষরের ফাঁক<input type="range" id="ls" min="-2" max="20" step="0.5"></label>
+        <label class="chk"><input type="checkbox" id="shd"> ছায়া</label>
+        <label>আউটলাইন<input type="range" id="olw" min="0" max="12" step="0.5"></label>
+        <label>আউটলাইন রং<input type="color" id="olc"></label>
+        <label class="chk"><input type="checkbox" id="tbg"> লেখার ব্যাকগ্রাউন্ড</label>
+        <label>ব্যাকগ্রাউন্ড রং<input type="color" id="tbc"></label>
+        <label>ঘোরানো<input type="range" id="rot" min="-180" max="180"></label>
+        <div class="seg" role="group" aria-label="ক্যানভাসে অবস্থান">
+          <button class="ib" data-ca="l">⇤</button><button class="ib" data-ca="ch">↔ মাঝে</button><button class="ib" data-ca="r">⇥</button>
+          <button class="ib" data-ca="t">⤒</button><button class="ib" data-ca="cv">↕ মাঝে</button><button class="ib" data-ca="b">⤓</button>
+        </div>
+      </fieldset>
+    </div>
+
+    <div id="p-bg" class="tp" hidden>
+      <label>ধরন<select id="bgType"><option value="gradient">গ্র্যাডিয়েন্ট</option><option value="solid">একরঙা</option><option value="image">ছবি</option></select></label>
+      <div id="bgPresets" class="swatches" aria-label="প্রিসেট ব্যাকগ্রাউন্ড"></div>
+      <div id="g-solid"><label>রং<input type="color" id="bgColor"></label></div>
+      <div id="g-grad"><label>রং ১<input type="color" id="bgG1"></label><label>রং ২<input type="color" id="bgG2"></label><label>কোণ<input type="range" id="bgAng" min="0" max="360"></label></div>
+      <div id="g-img">
+        <label>নিজের ছবি (JPG/PNG/WebP, সর্বোচ্চ ৫MB)<input type="file" id="bgFile" accept="image/jpeg,image/png,image/webp"></label>
+        <button class="ib" id="bgRm">ছবি সরান</button>
+        <label>ব্লার<input type="range" id="bgBlur" min="0" max="30"></label>
+        <label>উজ্জ্বলতা<input type="range" id="bgBr" min="30" max="170"></label>
+        <label>অবস্থান (অনুভূমিক)<input type="range" id="bgPx" min="0" max="100"></label>
+        <label>অবস্থান (উল্লম্ব)<input type="range" id="bgPy" min="0" max="100"></label>
+        <p class="note" id="blurNote" hidden>এই ব্রাউজারে ব্লার ও উজ্জ্বলতা সমর্থিত নয়।</p>
+      </div>
+      <label>ওভারলে<input type="range" id="bgOv" min="0" max="90"></label>
+      <label>ওভারলে রং<input type="color" id="bgOvC"></label>
+    </div>
+
+    <div id="p-size" class="tp" hidden>
+      <div class="tgrid">
+        <button class="ib" data-size="sq">⬜ স্কয়ার ১:১<br><small>১০৮০×১০৮০</small></button>
+        <button class="ib" data-size="pt">▯ পোর্ট্রেট ৪:৫<br><small>১০৮০×১৩৫০</small></button>
+        <button class="ib" data-size="st">📱 স্টোরি ৯:১৬<br><small>১০৮০×১৯২০</small></button>
+        <button class="ib" data-size="ls">▭ ল্যান্ডস্কেপ ১৬:৯<br><small>১৯২০×১০৮০</small></button>
+      </div>
+      <div class="row"><label>প্রস্থ<input type="number" id="cw" min="320" max="4000" value="1080"></label><label>উচ্চতা<input type="number" id="ch" min="320" max="4000" value="1080"></label><button class="ib" id="cApply">কাস্টম সাইজ</button></div>
+    </div>
+
+    <div id="p-out" class="tp" hidden>
+      <label>ডিজাইনের নাম<input type="text" id="dname" maxlength="60" placeholder="আমার ডিজাইন"></label>
+      <label class="chk"><input type="checkbox" id="wmOn"> ওয়েবসাইটের ছোট ওয়াটারমার্ক</label>
+      <label>ওয়াটারমার্কের জায়গা<select id="wmPos"><option value="br">নিচে ডানে</option><option value="bl">নিচে বামে</option><option value="bc">নিচে মাঝে</option><option value="tr">উপরে ডানে</option><option value="tl">উপরে বামে</option></select></label>
+      <label>ওয়াটারমার্ক স্বচ্ছতা<input type="range" id="wmOp" min="0.1" max="1" step="0.05"></label>
+      <p class="note">ওয়াটারমার্ক বন্ধ করা আপনার ইচ্ছা। সেভ ও এক্সপোর্টে যে সেটিং আছে সেটাই থাকবে।</p>
+    </div>
+  </aside>
+</main>
+
+<dialog id="prevDlg"><h3>প্রিভিউ ও ডাউনলোড</h3>
+  <img id="prevImg" alt="ডিজাইনের প্রিভিউ" style="max-width:100%;max-height:50vh;border-radius:10px;display:block;margin:0 auto">
+  <div class="row"><label>ফরম্যাট<select id="pfmt"><option value="png">PNG</option><option value="jpg">JPG</option></select></label>
+  <label>রেজোলিউশন<select id="pscale"><option value="1">স্বাভাবিক</option><option value="2">হাই-রেজ (২x)</option></select></label></div>
+  <label>ফাইলের নাম<input type="text" id="pname" maxlength="60" value="caption-design"></label>
+  <div class="row"><button class="btn" id="pdl">ডাউনলোড</button><button class="btn alt" id="pshare">শেয়ার</button><button class="btn alt" id="pclose">বন্ধ</button></div>
+</dialog>
+
+<dialog id="galDlg" style="width:560px"><h3>আমার ডিজাইন</h3>
+  <p class="note" id="galNote"></p>
+  <div id="galList" class="gal"></div>
+  <div class="row"><button class="btn alt" id="galClose">বন্ধ</button></div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/studio.js"></script>
+<script src="/assets/js/pwa.js" defer></script>
+</body></html>

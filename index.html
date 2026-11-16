@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Limon Chacchu Caption Ghor — বাংলা ক্যাপশন, কবিতা, শায়েরি ও গল্প</title>
+<meta name="description" content="ভালোবাসা, কষ্ট, অ্যাটিটিউড, বন্ধুত্ব, ইসলামিক ও অনুপ্রেরণার সেরা বাংলা ক্যাপশন, কবিতা, শায়েরি ও গল্প। কপি, শেয়ার ও সেভ করুন।">
+<meta property="og:title" content="Limon Chacchu Caption Ghor">
+<meta property="og:description" content="সেরা বাংলা ক্যাপশন, কবিতা, শায়েরি ও গল্প এক জায়গায়।">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e11d48">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="/">❤️ Limon Chacchu Caption Ghor</a>
+  <a class="ib" href="/design.html">🎨 ডিজাইন</a>
+  <button class="ib" id="installBtn" hidden>ইনস্টল</button>
+  <button class="ib" id="themeBtn" aria-label="থিম পরিবর্তন">🌓</button>
+  <button class="btn" id="authBtn">লগইন</button>
+</div></header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <h1>মনের কথা, সুন্দর ভাষায়</h1>
+    <p>ক্যাপশন, কবিতা, শায়েরি ও গল্প — খুঁজুন, কপি করুন, শেয়ার করুন</p>
+    <div class="sbox" role="search">
+      <input id="q" type="search" placeholder="খুঁজুন: ভালোবাসার ক্যাপশন, valobashar caption…" aria-label="সার্চ" autocomplete="off">
+      <button class="x" id="clr" aria-label="মুছুন" hidden>✕</button>
+      <button class="mic" id="mic" aria-label="ভয়েস সার্চ">🎤</button>
+      <div id="sugg" hidden></div>
+    </div>
+  </div>
+
+  <div class="chips" id="cats" role="group" aria-label="ক্যাটাগরি"></div>
+  <div class="tools">
+    <select id="type" aria-label="ধরন"><option value="">সব ধরন</option><option value="caption">ক্যাপশন</option><option value="shayari">শায়েরি</option><option value="poem">কবিতা</option><option value="story">গল্প</option></select>
+    <select id="sort" aria-label="সাজান"><option value="latest">নতুন আগে</option><option value="trending">ট্রেন্ডিং</option><option value="views">বেশি দেখা</option><option value="copies">বেশি কপি</option><option value="likes">বেশি পছন্দ</option></select>
+    <button class="btn alt" id="fav">❤ আমার পছন্দ</button>
+    <button class="btn alt" id="rnd">🎲 র‍্যান্ডম</button>
+  </div>
+
+  <section class="daily" id="dailyBox" aria-label="আজকের কোট"></section>
+  <section><h2 id="rtitle">সব কনটেন্ট</h2><div id="list" class="grid" aria-live="polite"></div>
+    <div style="text-align:center;margin-top:1rem"><button class="btn alt" id="more" hidden>আরও দেখুন</button></div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="social" id="social"></div>
+  <div>© <span id="yr"></span> Limon Chacchu Caption Ghor ❤️</div>
+</div></footer>
+
+<nav class="bottom" aria-label="প্রধান নেভিগেশন">
+  <a href="#top">🏠<br>হোম</a><button id="nSearch">🔍<br>সার্চ</button><button id="nFav">❤<br>পছন্দ</button><button id="nAuth">👤<br>প্রোফাইল</button>
+</nav>
+
+<dialog id="shareDlg"><h3>শেয়ার করুন</h3>
+  <textarea id="shareText" rows="3"></textarea>
+  <div class="row" id="shareLinks"></div>
+  <div class="row"><button class="btn" id="shareCopy">কপি</button><button class="btn alt" id="shareClose">বন্ধ</button></div>
+</dialog>
+
+<dialog id="authDlg"><h3 id="authTitle">লগইন</h3>
+  <p id="authMsg" class="meta" role="status"></p>
+  <input id="em" type="email" placeholder="ইমেইল" autocomplete="email">
+  <input id="pw" type="password" placeholder="পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)" autocomplete="current-password">
+  <div class="row"><button class="btn" id="authGo">লগইন</button><button class="btn alt" id="authSwitch">নতুন অ্যাকাউন্ট</button></div>
+  <div class="row"><button class="btn alt" id="gBtn">Google দিয়ে লগইন</button><button class="btn alt" id="forgot">পাসওয়ার্ড ভুলে গেছেন?</button></div>
+  <div class="row"><button class="btn alt" id="authClose">বন্ধ</button></div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/assets/js/config.js"></script>
+<script src="/assets/js/data.js"></script>
+<script src="/assets/js/search.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/pwa.js" defer></script>
+</body></html>
