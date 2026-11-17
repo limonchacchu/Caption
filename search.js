@@ -1,6 +1,6 @@
 // Part 05: Bangla/English typo-tolerant search using Fuse.js.
 // Load BEFORE this file:
-//   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+//   the Fuse.js 7.0.0 script from jsdelivr (see index.html)
 // Usage:
 //   const engine = CaptionSearch.create(items); // items: [{id,title,body,category,tags:[...]}]
 //   const results = engine.search('valobashar caption');
@@ -22,13 +22,18 @@
     return [...new Set([...words, ...extra])].join(' ');
   }
   function create(items) {
-    if (!global.Fuse) throw new Error('Fuse.js not loaded');
     const data = items.map(i => ({ ...i, _t: normalize(i.title), _b: normalize(i.body),
       _g: (i.tags || []).map(normalize).join(' '), _c: normalize(i.category) }));
-    const fuse = new global.Fuse(data, {
+    // Fallback if the Fuse.js CDN is unreachable: simple substring matching so the site never breaks
+    const fuse = global.Fuse ? new global.Fuse(data, {
       threshold: 0.35, ignoreLocation: true, minMatchCharLength: 2,
       keys: [{ name: '_t', weight: 3 }, { name: '_g', weight: 2 }, { name: '_c', weight: 2 }, { name: '_b', weight: 1 }]
-    });
+    }) : {
+      search(q, o) {
+        const ws = q.split(' ').filter(Boolean);
+        return data.map((i) => ({ item: i, sc: ws.filter((w) => (i._t + ' ' + i._g + ' ' + i._c + ' ' + i._b).includes(w)).length })).filter((x) => x.sc).sort((a, b) => b.sc - a.sc).slice(0, (o && o.limit) || 30);
+      }
+    };
     const cache = new Map();
     return {
       search(q, limit = 30) {

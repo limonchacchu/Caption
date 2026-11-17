@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Limon Chacchu Caption Ghor</title>
+<link rel="icon" type="image/png" href="assets/icons/favicon-64.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Galada&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<header><div class="wrap bar">
+  <a class="logo" href="admin.html"><img src="assets/logo.png" alt="" width="36" height="36"><span>Admin</span></a>
+  <span class="meta" id="who"></span>
+  <a class="ib" href="./">সাইট</a>
+  <button class="ib" id="themeBtn" aria-label="থিম পরিবর্তন">🌓</button>
+  <button class="btn" id="logout" hidden>লগআউট</button>
+</div></header>
+
+<div id="gate" class="wrap gate"></div>
+<div id="app" class="admin" hidden>
+  <nav id="nav" aria-label="অ্যাডমিন মেনু"></nav>
+  <main id="view" aria-live="polite"></main>
+</div>
+<dialog id="edDlg"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+</body></html>

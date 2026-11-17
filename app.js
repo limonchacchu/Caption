@@ -9,6 +9,7 @@
   const CATS = { love:"ভালোবাসা", sad:"কষ্ট", attitude:"অ্যাটিটিউড", friendship:"বন্ধুত্ব", islamic:"ইসলামিক", motivational:"অনুপ্রেরণা", funny:"মজার", life:"জীবন" };
   const TYPES = { caption:"ক্যাপশন", shayari:"শায়েরি", poem:"কবিতা", story:"গল্প" };
   const PAGE = 12;
+  const BASE = location.origin + location.pathname.replace(/[^/]*$/, ""); // works under /Caption/ too
   const st = { items: [], q: "", cat: "", type: "", sort: "latest", favOnly: false, page: 1 };
   let sb = null, user = null, engine = null, favs = new Set(store.get("favs", []));
   let authMode = "login";
@@ -37,6 +38,9 @@
         toast("সার্ভার সংযোগ ব্যর্থ, নমুনা কনটেন্ট দেখানো হচ্ছে");
       }
       initAuth();
+      sb.from("site_settings").select("value").eq("key", "social").maybeSingle().then(({ data }) => {
+        if (data && Array.isArray(data.value) && data.value.length) renderSocial(data.value.filter((x) => x.enabled !== false).sort((a, b) => (a.order || 0) - (b.order || 0)));
+      }, () => {});
     } else {
       st.items = window.SAMPLE_ITEMS || [];
       $("#authBtn").hidden = true; $("#nAuth").hidden = true;
@@ -78,7 +82,7 @@
     const fv = el("button", "ib fav", "❤"); fv.setAttribute("aria-pressed", favs.has(String(i.id)));
     fv.setAttribute("aria-label", "পছন্দ"); fv.onclick = () => { toggleFav(i); fv.setAttribute("aria-pressed", favs.has(String(i.id))); };
     const ds = el("button", "ib", "🎨"); ds.setAttribute("aria-label", "ডিজাইন করুন"); ds.title = "Design This Caption";
-    ds.onclick = () => { try { sessionStorage.setItem("design_text", i.body); } catch {} location.href = "/design.html"; };
+    ds.onclick = () => { try { sessionStorage.setItem("design_text", i.body); } catch {} location.href = "design.html"; };
     a.append(cp, sh, ds, fv); c.appendChild(a);
     return c;
   }
@@ -133,7 +137,7 @@
     if (st.favOnly) render();
   }
   function share(i) {
-    const url = location.origin + "/";
+    const url = BASE;
     const text = `এই সুন্দর লেখাটি দেখুন —\n${i.body}`;
     $("#shareText").value = text;
     const enc = encodeURIComponent, links = $("#shareLinks"); links.replaceChildren();
@@ -206,25 +210,29 @@
     const email = $("#em").value.trim(), password = $("#pw").value, msg = $("#authMsg");
     if (!email || password.length < 8) return (msg.textContent = "সঠিক ইমেইল ও কমপক্ষে ৮ অক্ষরের পাসওয়ার্ড দিন।");
     msg.textContent = "অপেক্ষা করুন…";
-    const { error } = authMode === "login" ? await sb.auth.signInWithPassword({ email, password }) : await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin } });
+    const { error } = authMode === "login" ? await sb.auth.signInWithPassword({ email, password }) : await sb.auth.signUp({ email, password, options: { emailRedirectTo: BASE } });
     if (error) msg.textContent = "ব্যর্থ: " + error.message;
     else if (authMode === "signup") msg.textContent = "ইমেইল ভেরিফিকেশন লিংক পাঠানো হয়েছে। ইনবক্স চেক করুন।";
     else { msg.textContent = ""; $("#authDlg").close(); toast("লগইন সফল ✓"); }
   };
-  $("#gBtn").onclick = () => sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: location.origin } });
+  $("#gBtn").onclick = () => sb.auth.signInWithOAuth({ provider: "google", options: { redirectTo: BASE } });
   $("#forgot").onclick = async () => {
     const email = $("#em").value.trim(); if (!email) return ($("#authMsg").textContent = "প্রথমে ইমেইল লিখুন।");
-    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin });
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: BASE });
     $("#authMsg").textContent = error ? "ব্যর্থ: " + error.message : "রিসেট লিংক পাঠানো হয়েছে।";
   };
 
-  // ---------- Social links (only real URLs from config) ----------
+  // ---------- Social links (admin-managed, with config fallback; only valid https URLs) ----------
   const names = { facebook: "Facebook", youtube: "YouTube", instagram: "Instagram", tiktok: "TikTok", telegram: "Telegram", whatsapp: "WhatsApp", pinterest: "Pinterest", x: "X" };
-  Object.entries(cfg.SOCIAL || {}).forEach(([k, u]) => {
-    try { const url = new URL(u); if (url.protocol !== "https:") return;
-      const a = el("a", "", names[k] || k); a.href = url.href; a.target = "_blank"; a.rel = "noopener noreferrer"; a.setAttribute("aria-label", names[k] + " এ যান"); $("#social").appendChild(a);
-    } catch {}
-  });
+  function renderSocial(items) {
+    const box = $("#social"); box.replaceChildren();
+    items.forEach(({ name, url }) => {
+      try { const u = new URL(url); if (u.protocol !== "https:") return;
+        const a = el("a", "", name); a.href = u.href; a.target = "_blank"; a.rel = "noopener noreferrer"; a.setAttribute("aria-label", name + " এ যান"); box.appendChild(a);
+      } catch {}
+    });
+  }
+  renderSocial(Object.entries(cfg.SOCIAL || {}).filter(([, u]) => u).map(([k, u]) => ({ name: names[k] || k, url: u })));
 
   $("#yr").textContent = new Date().getFullYear();
   load();

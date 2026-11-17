@@ -108,7 +108,7 @@
     }
     const e = cur(); if (!e) return;
     const H = handles(e);
-    c.save(); c.strokeStyle = "#e11d48"; c.fillStyle = "#fff"; c.lineWidth = 2 * k; c.setLineDash([8 * k, 6 * k]);
+    c.save(); c.strokeStyle = "#e8789f"; c.fillStyle = "#fff"; c.lineWidth = 2 * k; c.setLineDash([8 * k, 6 * k]);
     c.beginPath(); [H.tl, H.tr, H.br, H.bl].forEach((p, i) => (i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y))); c.closePath(); c.stroke(); c.setLineDash([]);
     const tm = { x: (H.tl.x + H.tr.x) / 2, y: (H.tl.y + H.tr.y) / 2 };
     c.beginPath(); c.moveTo(tm.x, tm.y); c.lineTo(H.ro.x, H.ro.y); c.stroke();
@@ -360,6 +360,7 @@
     if (cfg.SUPABASE_URL && cfg.SUPABASE_ANON_KEY && window.supabase) {
       sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
       try { const { data } = await sb.auth.getSession(); user = data.session && data.session.user; } catch {}
+      try { const { data } = await sb.from("site_settings").select("value").eq("key", "watermark").maybeSingle(); if (data && data.value) cfg.WATERMARK = Object.assign({}, cfg.WATERMARK, { enabled: data.value.enabled, position: data.value.position, opacity: data.value.opacity }); } catch {}
     }
     try { const t = sessionStorage.getItem("design_text"); if (t) { userText = t.slice(0, 800); sessionStorage.removeItem("design_text"); } } catch {}
     if (!userText) { const q = new URLSearchParams(location.search).get("text"); if (q) userText = q.slice(0, 800); }

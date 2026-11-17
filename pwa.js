@@ -1,8 +1,8 @@
-// Add <script src="/assets/pwa.js" defer></script> to your pages.
+// Included on every page with a script tag (see index.html).
 // Optional: add <button id="installBtn" hidden>অ্যাপ ইনস্টল করুন</button> anywhere.
 (function () {
   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(console.error));
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(console.error));
   }
   let deferred;
   const btn = () => document.getElementById('installBtn');
